@@ -4,41 +4,47 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{ project_name }} - BIM porqueViven</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700;900&display=swap" rel="stylesheet">
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #f8fafc; color: #1e293b; }
-        header { background: #fff; border-bottom: 1px solid #e2e8f0; padding: 16px 24px; }
+        body { font-family: 'Lato', 'Open Sans', sans-serif; background: #E5EDF3; color: #2D2D2D; }
+        header { background: #fff; border-bottom: 3px solid #0C4DA2; padding: 16px 24px; box-shadow: 0 2px 8px rgba(12,77,162,0.08); }
         header h1 { font-size: 20px; }
-        header p { font-size: 13px; color: #64748b; margin-top: 4px; }
+        header p { font-size: 13px; color: #555555; margin-top: 4px; }
+        .brand-porque { font-weight: 900; color: #0C4DA2; }
+        .brand-viven { font-weight: 900; color: #770E75; }
         main { max-width: 960px; margin: 0 auto; padding: 24px 16px; }
         .stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 12px; margin-bottom: 24px; }
-        .stat { background: #fff; border: 1px solid #e2e8f0; border-radius: 8px; padding: 16px; cursor: pointer; transition: border-color 0.15s, box-shadow 0.15s; }
-        .stat:hover { border-color: #2563eb; }
-        .stat.active { border-color: #2563eb; box-shadow: 0 0 0 2px rgba(37,99,235,0.2); }
-        .stat-num { font-size: 28px; font-weight: 700; color: #2563eb; }
-        .stat-label { font-size: 12px; color: #64748b; margin-top: 4px; }
+        .stat { background: #fff; border: 1px solid #C8D6E0; border-radius: 8px; padding: 16px; cursor: pointer; transition: border-color 0.15s, box-shadow 0.15s; box-shadow: 0 2px 6px rgba(0,0,0,0.03); }
+        .stat:hover { border-color: #0C4DA2; }
+        .stat.active { border-color: #0C4DA2; box-shadow: 0 0 0 2px rgba(12,77,162,0.2); }
+        .stat-num { font-size: 28px; font-weight: 700; color: #0C4DA2; }
+        .stat-label { font-size: 12px; color: #555555; margin-top: 4px; }
 
         .toolbar { display: flex; gap: 12px; align-items: center; margin-bottom: 16px; flex-wrap: wrap; }
-        .search-box { flex: 1; min-width: 200px; padding: 10px 14px; border: 1px solid #e2e8f0; border-radius: 8px; font-size: 14px; background: #fff; }
-        .search-box:focus { outline: none; border-color: #2563eb; box-shadow: 0 0 0 2px rgba(37,99,235,0.2); }
-        .count-label { font-size: 13px; color: #64748b; white-space: nowrap; }
+        .search-box { flex: 1; min-width: 200px; padding: 10px 14px; border: 1px solid #C8D6E0; border-radius: 8px; font-size: 14px; background: #fff; font-family: 'Lato', 'Open Sans', sans-serif; }
+        .search-box:focus { outline: none; border-color: #0C4DA2; box-shadow: 0 0 0 2px rgba(12,77,162,0.2); }
+        .count-label { font-size: 13px; color: #555555; white-space: nowrap; }
 
         h2 { font-size: 16px; margin-bottom: 12px; }
-        .table-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; border-radius: 8px; border: 1px solid #e2e8f0; }
+        .table-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; border-radius: 8px; border: 1px solid #C8D6E0; }
         table { width: 100%; background: #fff; border-collapse: collapse; font-size: 13px; }
-        th { background: #f8fafc; text-align: left; padding: 10px 12px; font-weight: 600; color: #475569; border-bottom: 1px solid #e2e8f0; position: sticky; top: 0; }
-        td { padding: 8px 12px; border-bottom: 1px solid #f1f5f9; }
-        tr:nth-child(even) td { background: #fafbfc; }
-        tr:hover td { background: #f1f5f9; }
+        th { background: #EDF2F7; text-align: left; padding: 10px 12px; font-weight: 600; color: #0C4DA2; border-bottom: 2px solid #0C4DA2; position: sticky; top: 0; }
+        td { padding: 8px 12px; border-bottom: 1px solid #E0E8EF; }
+        tr:nth-child(even) td { background: #F5F8FB; }
+        tr:hover td { background: #E5EDF3; }
         tr.hidden { display: none; }
-        a { color: #2563eb; text-decoration: none; }
+        a { color: #0C4DA2; text-decoration: none; }
         a:hover { text-decoration: underline; }
+        .site-footer { text-align: center; padding: 24px 16px; font-size: 12px; color: #777; border-top: 1px solid #C8D6E0; margin-top: 32px; }
     </style>
 </head>
 <body>
     <header>
-        <h1>{{ project_name }}</h1>
-        <p>porqueViven BIM &mdash; {{ elements | length }} elementos</p>
+        <h1><span class="brand-porque">porque</span><span class="brand-viven">Viven</span> BIM</h1>
+        <p>{{ project_name }} &mdash; {{ elements | length }} elementos</p>
     </header>
     <main>
         <div class="stats" id="stats">
@@ -119,5 +125,9 @@
         });
     })();
     </script>
+
+    <div class="site-footer">
+        <span class="brand-porque">porque</span><span class="brand-viven">Viven</span>.org &mdash; {{ project_name }}
+    </div>
 </body>
 </html>

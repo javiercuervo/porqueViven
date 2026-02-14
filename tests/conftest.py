@@ -77,3 +77,79 @@ def csv_special_chars(tmp_dir):
     with open(path, "w", newline="", encoding="utf-8") as f:
         csv.writer(f).writerows(rows)
     return path
+
+
+@pytest.fixture
+def csv_alt_column_names(tmp_dir):
+    """CSV con nombres de columna alternativos (ingles)."""
+    path = os.path.join(tmp_dir, "alt_cols.csv")
+    rows = [
+        ["GlobalId", "name", "Mark", "Type Name", "discipline", "IfcClass", "category", "Operation"],
+        ["GUID_ALT1", "Door Standard", "DA001", "80x210", "Arquitectura", "IfcDoor", "Puertas", "Swing"],
+    ]
+    with open(path, "w", newline="", encoding="utf-8") as f:
+        csv.writer(f).writerows(rows)
+    return path
+
+
+@pytest.fixture
+def csv_with_nan_values(tmp_dir):
+    """CSV con valores nan en GUID, marca y campos opcionales."""
+    path = os.path.join(tmp_dir, "nan_vals.csv")
+    rows = [
+        ["IfcGUID", "Name", "Marca", "Nombre de tipo", "Disciplina", "IFC Class", "Category", "Operacion"],
+        ["GUID_N1", "Puerta normal", "PN001", "nan", "Arquitectura", "IfcDoor", "Puertas", "nan"],
+        ["nan", "Sin GUID", "PN002", "tipo", "Arquitectura", "IfcDoor", "Puertas", ""],
+        ["GUID_N3", "Otra", "nan", "tipo", "Arquitectura", "IfcDoor", "Puertas", ""],
+    ]
+    with open(path, "w", newline="", encoding="utf-8") as f:
+        csv.writer(f).writerows(rows)
+    return path
+
+
+@pytest.fixture
+def csv_all_empty_optional(tmp_dir):
+    """CSV con elemento que tiene todos los campos opcionales vacios."""
+    path = os.path.join(tmp_dir, "empty_optional.csv")
+    rows = [
+        ["IfcGUID", "Name", "Marca", "Nombre de tipo", "Disciplina", "IFC Class", "Category", "Operacion"],
+        ["GUID_EO1", "Elemento basico", "EB001", "", "Arquitectura", "", "", ""],
+    ]
+    with open(path, "w", newline="", encoding="utf-8") as f:
+        csv.writer(f).writerows(rows)
+    return path
+
+
+@pytest.fixture
+def csv_long_name(tmp_dir):
+    """CSV con elemento de nombre muy largo (250 caracteres)."""
+    path = os.path.join(tmp_dir, "long_name.csv")
+    long_name = "A" * 250
+    rows = [
+        ["IfcGUID", "Name", "Marca", "Nombre de tipo", "Disciplina", "IFC Class", "Category", "Operacion"],
+        ["GUID_LN1", long_name, "LN001", "Tipo largo " + "B" * 100, "Arquitectura", "IfcDoor", "Puertas", "Abatible"],
+    ]
+    with open(path, "w", newline="", encoding="utf-8") as f:
+        csv.writer(f).writerows(rows)
+    return path
+
+
+@pytest.fixture
+def large_csv(tmp_dir):
+    """CSV con 120 elementos para tests de dataset grande."""
+    path = os.path.join(tmp_dir, "large.csv")
+    header = ["IfcGUID", "Name", "Marca", "Nombre de tipo", "Disciplina", "IFC Class", "Category", "Operacion"]
+    disciplines = ["Arquitectura", "Estructura", "Saneamiento-Fontaneria-Geotermia",
+                    "Climatizacion-Ventilacion", "Electricidad", "PCI-Gases Medicinales"]
+    rows_data = []
+    for i in range(120):
+        disc = disciplines[i % len(disciplines)]
+        rows_data.append([
+            f"GUID_{i:04d}", f"Elemento {i}", f"EL{i:04d}",
+            f"Tipo {i}", disc, "IfcWall", "Muros", ""
+        ])
+    with open(path, "w", newline="", encoding="utf-8") as f:
+        w = csv.writer(f)
+        w.writerow(header)
+        w.writerows(rows_data)
+    return path

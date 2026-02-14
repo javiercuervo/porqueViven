@@ -412,13 +412,21 @@ CELL_W = (PAGE_W - 2 * MARGIN) / COLS
 CELL_H = 42 * mm
 QR_SZ = 25 * mm
 
-S_MARCA = ParagraphStyle("m", fontSize=11, fontName="Helvetica-Bold", alignment=TA_CENTER, leading=13)
-S_NAME = ParagraphStyle("n", fontSize=7, fontName="Helvetica", alignment=TA_CENTER, leading=9, textColor=colors.HexColor("#333"))
-S_TYPE = ParagraphStyle("t", fontSize=6.5, fontName="Helvetica", alignment=TA_CENTER, leading=8, textColor=colors.HexColor("#666"))
-S_HEAD = ParagraphStyle("h", fontSize=14, fontName="Helvetica-Bold")
-S_SUB = ParagraphStyle("s", fontSize=10, fontName="Helvetica", textColor=colors.HexColor("#666"))
-S_TITLE = ParagraphStyle("T", fontSize=24, fontName="Helvetica-Bold", alignment=TA_CENTER, spaceAfter=10 * mm)
-S_COVER = ParagraphStyle("C", fontSize=14, fontName="Helvetica", alignment=TA_CENTER, textColor=colors.HexColor("#444"), spaceAfter=5 * mm)
+# Brand colors
+BRAND_BLUE = colors.HexColor("#0C4DA2")
+BRAND_PURPLE = colors.HexColor("#770E75")
+BRAND_DARK = colors.HexColor("#2D2D2D")
+BRAND_LIGHT_BG = colors.HexColor("#E5EDF3")
+BRAND_BORDER = colors.HexColor("#C8D6E0")
+
+S_MARCA = ParagraphStyle("m", fontSize=11, fontName="Helvetica-Bold", alignment=TA_CENTER, leading=13, textColor=BRAND_BLUE)
+S_NAME = ParagraphStyle("n", fontSize=7, fontName="Helvetica", alignment=TA_CENTER, leading=9, textColor=BRAND_DARK)
+S_TYPE = ParagraphStyle("t", fontSize=6.5, fontName="Helvetica", alignment=TA_CENTER, leading=8, textColor=colors.HexColor("#555555"))
+S_HEAD = ParagraphStyle("h", fontSize=14, fontName="Helvetica-Bold", textColor=BRAND_BLUE)
+S_SUB = ParagraphStyle("s", fontSize=10, fontName="Helvetica", textColor=colors.HexColor("#555555"))
+S_TITLE = ParagraphStyle("T", fontSize=24, fontName="Helvetica-Bold", alignment=TA_CENTER, spaceAfter=10 * mm, textColor=BRAND_BLUE)
+S_COVER = ParagraphStyle("C", fontSize=14, fontName="Helvetica", alignment=TA_CENTER, textColor=colors.HexColor("#444444"), spaceAfter=5 * mm)
+S_BRAND_SMALL = ParagraphStyle("bs", fontSize=5, fontName="Helvetica", alignment=TA_CENTER, leading=6, textColor=BRAND_PURPLE)
 
 
 def _qr_draw(url):
@@ -445,6 +453,7 @@ def _label_cell(el, base_url):
         parts.append([Paragraph(_trunc(el.nombre_tipo, 30), S_TYPE)])
     if el.operacion:
         parts.append([Paragraph(_trunc(el.operacion, 25), S_TYPE)])
+    parts.append([Paragraph("porqueViven", S_BRAND_SMALL)])
 
     t = Table(parts, colWidths=[CELL_W - 4 * mm])
     t.setStyle(TableStyle([
@@ -468,7 +477,9 @@ def _label_grid(elements, base_url):
     t.setStyle(TableStyle([
         ("ALIGN", (0, 0), (-1, -1), "CENTER"),
         ("VALIGN", (0, 0), (-1, -1), "MIDDLE"),
-        ("GRID", (0, 0), (-1, -1), 0.5, colors.HexColor("#DDD")),
+        ("GRID", (0, 0), (-1, -1), 0.5, BRAND_BORDER),
+        ("LINEABOVE", (0, 0), (-1, 0), 2, BRAND_BLUE),
+        ("LINEBELOW", (0, -1), (-1, -1), 2, BRAND_PURPLE),
         ("TOPPADDING", (0, 0), (-1, -1), 2 * mm),
         ("BOTTOMPADDING", (0, 0), (-1, -1), 2 * mm),
     ]))
@@ -492,7 +503,10 @@ def generate_pdf(elements: list[Element], project_name: str, discipline: str = N
     # Cover
     story.append(Spacer(1, 40 * mm))
     story.append(Paragraph(project_name, S_TITLE))
-    story.append(Paragraph("porqueViven.org", S_COVER))
+    story.append(Paragraph(
+        '<font color="#0C4DA2">porque</font><font color="#770E75">Viven</font>.org',
+        S_COVER
+    ))
     story.append(Spacer(1, 10 * mm))
     story.append(Paragraph(f"Disciplina: {disc_label}", S_COVER))
     story.append(Paragraph(f"Elementos: {len(elements)}", S_COVER))
@@ -551,11 +565,14 @@ def generate_pdf(elements: list[Element], project_name: str, discipline: str = N
             ("FONTNAME", (0, 0), (-1, 0), "Helvetica-Bold"),
             ("FONTSIZE", (0, 0), (-1, -1), 7),
             ("LEADING", (0, 0), (-1, -1), 9),
-            ("GRID", (0, 0), (-1, -1), 0.5, colors.HexColor("#CCC")),
-            ("BACKGROUND", (0, 0), (-1, 0), colors.HexColor("#F0F0F0")),
+            ("GRID", (0, 0), (-1, -1), 0.5, BRAND_BORDER),
+            ("BACKGROUND", (0, 0), (-1, 0), BRAND_LIGHT_BG),
+            ("TEXTCOLOR", (0, 0), (-1, 0), BRAND_BLUE),
+            ("LINEBELOW", (0, 0), (-1, 0), 1.5, BRAND_BLUE),
             ("VALIGN", (0, 0), (-1, -1), "MIDDLE"),
             ("TOPPADDING", (0, 0), (-1, -1), 2),
             ("BOTTOMPADDING", (0, 0), (-1, -1), 2),
+            ("ROWBACKGROUNDS", (0, 1), (-1, -1), [colors.white, BRAND_LIGHT_BG]),
         ]))
         story.append(it)
 
