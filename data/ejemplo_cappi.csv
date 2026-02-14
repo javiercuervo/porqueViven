@@ -1,0 +1,13 @@
+IfcGUID,Name,Marca,Nombre de tipo,Disciplina,IFC Class,Category,Operacion
+1nwGt1S_v8gAItvRmxkMMQpf,CIT-Puerta 1 hoja-210x120x4.0 cm,PA107,210x120x4.0 cm,Arquitectura,IfcDoor,Puertas,Abatible
+2xwGt1S_v8gAItvRmxkNNRpg,CIT-Puerta 2 hojas-210x240x4.0 cm,PA108,210x240x4.0 cm,Arquitectura,IfcDoor,Puertas,Corredera
+3ywGt1S_v8gAItvRmxkOOSph,CIT-Puerta RF EI-60-210x120 cm,PA109,210x120 EI-60,Arquitectura,IfcDoor,Puertas,Abatible
+4zwGt1S_v8gAItvRmxkPPTpi,CIT-Ventana abatible-120x150x4.0 cm,VE201,120x150x4.0 cm,Arquitectura,IfcWindow,Ventanas,Oscilobatiente
+5awGt1S_v8gAItvRmxkQQUpj,CIT-Ventana fija-60x210x4.0 cm,VE202,60x210x4.0 cm,Arquitectura,IfcWindow,Ventanas,Fija
+6bwGt1S_v8gAItvRmxkRRVpk,CIT-Muro exterior-300x250 cm,MU301,300x250 cm,Arquitectura,IfcWall,Muros,
+7cwGt1S_v8gAItvRmxkSSWpl,CIT-Pilar HEB200,PI401,HEB200,Estructura,IfcColumn,Pilares,
+8dwGt1S_v8gAItvRmxkTTXpm,CIT-Viga IPE300,VI402,IPE300,Estructura,IfcBeam,Vigas,
+9ewGt1S_v8gAItvRmxkUUYpn,CIT-Tuberia DN50,TB501,DN50,Saneamiento-Fontaneria-Geotermia,IfcPipeSegment,Tuberias,
+0fwGt1S_v8gAItvRmxkVVZpo,CIT-Conducto 400x300,CD601,400x300,Climatizacion-Ventilacion,IfcDuctSegment,Conductos,
+1gwGt1S_v8gAItvRmxkWW0pp,CIT-Rociador K80,RO701,K80,PCI-Gases Medicinales,IfcFireSuppressionTerminal,Rociadores,
+2hwGt1S_v8gAItvRmxkXX1pq,CIT-Luminaria LED 60x60,LU801,LED 60x60,Electricidad,IfcLightFixture,Luminarias,

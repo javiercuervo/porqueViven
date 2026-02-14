@@ -1,0 +1,29 @@
+[project]
+name = "porqueviven-bim-qr"
+version = "1.0.0"
+description = "Generador de codigos QR para elementos BIM - porqueViven.org"
+readme = "README.md"
+license = "MIT"
+requires-python = ">=3.10"
+authors = [
+    { name = "Javier Cuervo" },
+]
+keywords = ["bim", "qr", "ifc", "arquitectura", "revit"]
+
+dependencies = [
+    "qrcode[pil]>=8.0",
+    "reportlab>=4.2.0",
+    "pandas>=2.2.0",
+    "openpyxl>=3.1.0",
+    "jinja2>=3.1.0",
+]
+
+[project.optional-dependencies]
+ifc = ["ifcopenshell>=0.8.0"]
+dev = ["pytest>=8.0"]
+
+[project.scripts]
+porqueviven-qr = "generate:main"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
